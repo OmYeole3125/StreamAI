@@ -2,6 +2,7 @@ import express, { json } from 'express';
 import dotenv from 'dotenv';
 import authRoutes from './routes/authRoute.js';
 import streamkeyRoutes from './routes/streamkeyRoutes.js';
+import streamRoutes from './routes/streamRoutes.js';
 import cors from 'cors';
 
 dotenv.config();
@@ -13,6 +14,7 @@ app.use(cors());
 
 app.use('/api/auth', authRoutes);
 app.use('/api/streamkey', streamkeyRoutes);
+app.use('/api/stream', streamRoutes);
 
 app.get('/', (req, res)=>{
     res.send("Welcome to StreamAI");
