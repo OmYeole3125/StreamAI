@@ -4,6 +4,7 @@ import authRoutes from './routes/authRoute.js';
 import streamkeyRoutes from './routes/streamkeyRoutes.js';
 import streamRoutes from './routes/streamRoutes.js';
 import categoryRoutes from './routes/categoryRoutes.js';
+import likeRoutes from './routes/likesRoutes.js';
 import cors from 'cors';
 
 dotenv.config();
@@ -17,6 +18,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/streamkey', streamkeyRoutes);
 app.use('/api/streams', streamRoutes);
 app.use('/api/category', categoryRoutes);
+app.use('/api/likes', likeRoutes);
 
 
 app.get('/', (req, res)=>{
