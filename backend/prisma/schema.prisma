@@ -55,14 +55,18 @@ model Category {
 }
 
 model Follower {
-  follower_id     String        @id @default(cuid())
-  followee_id     String
+  follower_id     String        // User who is following
+  followee_id     String        // User being followed
   followed_at     DateTime      @default(now())
 
   // Relations
   follower        User          @relation("Follows", fields: [follower_id], references: [user_id])
   followee        User          @relation("FollowedBy", fields: [followee_id], references: [user_id])
+
+  // Unique constraint on the combination of follower_id and followee_id
+  @@id([follower_id, followee_id]) // Composite primary key
 }
+
 
 model Like {
   like_id         String        @id @default(cuid())
@@ -93,10 +97,10 @@ model Chat {
   message         String
   sent_at         DateTime      @default(now())
 
-  // Relations
   stream          Stream        @relation(fields: [stream_id], references: [stream_id])
   user            User          @relation(fields: [user_id], references: [user_id])
 }
+
 
 model StreamKey {
   key_id     String   @id @default(cuid())
@@ -106,3 +110,29 @@ model StreamKey {
   streamer   User     @relation(fields: [streamer_id], references: [user_id])
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// model Follower {
+//   follower_id     String        @id @default(cuid())
+//   followee_id     String
+//   followed_at     DateTime      @default(now())
+
+//   // Relations
+//   follower        User          @relation("Follows", fields: [follower_id], references: [user_id])
+//   followee        User          @relation("FollowedBy", fields: [followee_id], references: [user_id])
+// }

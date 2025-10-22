@@ -1,4 +1,0 @@
-﻿A scalable video streaming platform
-
-Tech Stack: PERN
-RTMP Protocol
