@@ -54,16 +54,6 @@ model Category {
   streams         Stream[]      
 }
 
-// model Follower {
-//   follower_id     String        @id @default(cuid())
-//   followee_id     String
-//   followed_at     DateTime      @default(now())
-
-//   // Relations
-//   follower        User          @relation("Follows", fields: [follower_id], references: [user_id])
-//   followee        User          @relation("FollowedBy", fields: [followee_id], references: [user_id])
-// }
-
 model Follower {
   follower_id     String        // User who is following
   followee_id     String        // User being followed
@@ -120,3 +110,29 @@ model StreamKey {
   streamer   User     @relation(fields: [streamer_id], references: [user_id])
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// model Follower {
+//   follower_id     String        @id @default(cuid())
+//   followee_id     String
+//   followed_at     DateTime      @default(now())
+
+//   // Relations
+//   follower        User          @relation("Follows", fields: [follower_id], references: [user_id])
+//   followee        User          @relation("FollowedBy", fields: [followee_id], references: [user_id])
+// }
