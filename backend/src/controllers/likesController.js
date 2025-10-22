@@ -61,7 +61,7 @@ export const getLikesByStream = async (req, res) => {
 
     const likes = await prisma.like.findMany({
       where: { stream_id: streamId },
-      include: { user: { select: { username: true, profile_picture: true } } }, // Include user details
+      include: { user: { select: { username: true, profile_picture: true } } }, // Include user details ..
     });
 
     return res.status(200).json(likes);
@@ -70,3 +70,5 @@ export const getLikesByStream = async (req, res) => {
     res.status(500).json({ error: 'Error fetching likes for the stream.' });
   }
 };
+
+// hello
