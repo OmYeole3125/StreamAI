@@ -23,8 +23,8 @@ const RegisterPage = () => {
   const { isRegistering, register } = useAuthStore();
 
   const validateForm = () => {
-    if (!formData.fullName.trim()) {
-      return toast.error("Full name is required");
+    if (!formData.username.trim()) {
+      return toast.error("Username is required");
     }
     if (!formData.email.trim()) {
       return toast.error("Email is required");

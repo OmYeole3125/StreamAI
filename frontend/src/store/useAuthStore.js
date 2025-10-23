@@ -3,7 +3,8 @@ import { axiosInstance } from "../lib/axios.js";
 import toast from "react-hot-toast";
 
 export const useAuthStore = create((set, get) => ({
-  authUser: null,
+  authUser: JSON.parse(localStorage.getItem("user")) || null,
+  token: localStorage.getItem("token") || null,
   isRegistering: false,
   isLoggingIn: false,
   isUpdatingProfile: false,
@@ -11,18 +12,17 @@ export const useAuthStore = create((set, get) => ({
 
   isAuthenticate: async () => {
     try {
-      const user = localStorage.getItem("user");
+      const user = JSON.parse(localStorage.getItem("user"));
       const token = localStorage.getItem("token");
-      if (token) {
-        set({ authUser: user });
+
+      if (user && token) {
+        set({ authUser: user, token });
       } else {
-        throw Error();
+        throw new Error("Unauthenticated");
       }
     } catch (err) {
       toast.dismiss();
-      toast.success("Sign-up/Sign-in to access StreamAI", {
-        id: "Unauthenticated user",
-      });
+      toast.error("Sign-up / Sign-in to access StreamAI");
       set({ authUser: null });
     } finally {
       set({ isCheckingAuth: false });
@@ -33,12 +33,15 @@ export const useAuthStore = create((set, get) => ({
     set({ isRegistering: true });
     try {
       const response = await axiosInstance.post("/auth/signup", data);
-      localStorage.setItem("token", response.data.token);
-      localStorage.setItem("user", response.data.user);
-      set({ authUser: response.data.user });
-      toast.success("Account created successfully");
+
+      const { user, token } = response.data;
+      localStorage.setItem("token", token);
+      localStorage.setItem("user", JSON.stringify(user));
+
+      set({ authUser: user, token });
+      toast.success("Account created successfully!");
     } catch (err) {
-      toast.error(err.response.data.message);
+      toast.error(err.response?.data?.message || "Registration failed!");
     } finally {
       set({ isRegistering: false });
     }
@@ -48,18 +51,26 @@ export const useAuthStore = create((set, get) => ({
     set({ isLoggingIn: true });
     try {
       const response = await axiosInstance.post("/auth/login", data);
-      localStorage.setItem("token", response.data.token);
-      localStorage.setItem("user", response.data.user);
-      set({ authUser: response.data.user });
-      toast.success("Logged in successfully");
+
+      const { user, token } = response.data;
+      localStorage.setItem("token", token);
+      localStorage.setItem("user", JSON.stringify(user));
+
+      set({ authUser: user, token });
+      toast.success("Logged in successfully!");
     } catch (err) {
-      toast.error(err.response.data.message);
+      toast.error(err.response?.data?.message || "Login failed!");
     } finally {
       set({ isLoggingIn: false });
     }
   },
 
-  logout: async () => {},
+  logout: async () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    set({ authUser: null, token: null });
+    toast.success("Logged out successfully!");
+  },
 
   updateProfile: async (data) => {},
 }));
