@@ -24,19 +24,23 @@ const RegisterPage = () => {
 
   const validateForm = () => {
     if (!formData.username.trim()) {
-      return toast.error("Username is required");
+      toast.error("Username is required");
     }
     if (!formData.email.trim()) {
-      return toast.error("Email is required");
+      toast.error("Email is required");
+      return false;
     }
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
-      return toast.error("Invalid email format");
+      toast.error("Invalid email format");
+      return false;
     }
     if (!formData.password) {
-      return toast.error("Password is required");
+      toast.error("Password is required");
+      return false;
     }
     if (formData.password.length < 6) {
-      return toast.error("Password must be at least 6 characters");
+      toast.error("Password must be at least 6 characters");
+      return false;
     }
     return true;
   };
