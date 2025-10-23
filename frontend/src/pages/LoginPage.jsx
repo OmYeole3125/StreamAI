@@ -3,6 +3,7 @@ import { Eye, EyeOff, Loader2, Lock, Mail, MessageSquare } from "lucide-react";
 import { Link } from "react-router-dom";
 import AuthImagePattern from "../components/AuthImagePattern";
 import { useAuthStore } from "../store/useAuthStore";
+import toast from "react-hot-toast";
 
 const LoginPage = () => {
   const { isLoggingIn, login } = useAuthStore();
@@ -12,8 +13,28 @@ const LoginPage = () => {
     password: "",
   });
 
+  const validateForm = () => {
+    if (!formData.email.trim()) {
+      toast.error("Email is required");
+      return false;
+    }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+      toast.error("Invalid email format");
+      return false;
+    }
+    if (!formData.password) {
+      toast.error("Password is required");
+      return false;
+    }
+    return true;
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const validate = validateForm();
+    if (!validate) {
+      return;
+    }
     login(formData);
   };
 
@@ -44,7 +65,7 @@ const LoginPage = () => {
                   <Mail className="h-5 w-5 text-base-content/40 z-40" />
                 </div>
                 <input
-                  type="email"
+                  type="text"
                   className={`input input-bordered w-full pl-10`}
                   placeholder="you@example.com"
                   value={formData.email}
