@@ -5,7 +5,7 @@ services:
     container_name: stream-nginx
     ports:
       - "1935:1935"   # RTMP (OBS -> server)
-      - "8080:8080"   # HTTP (browser/VLC -> HLS)
+      - "5173:5173"   # HTTP (browser/VLC -> HLS)
     volumes:
       - ./html:/var/www/html:ro
       - hls-data:/var/www/hls

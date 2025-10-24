@@ -5,6 +5,7 @@ import RegisterPage from "./pages/RegisterPage";
 import LoginPage from "./pages/LoginPage";
 import HomePage from "./pages/HomePage";
 import { useAuthStore } from "./store/useAuthStore";
+import StreamPlayer from "./pages/StreamPlayer";
 import toast from "react-hot-toast";
 
 const App = () => {
@@ -29,6 +30,10 @@ const App = () => {
           <Route
             path="/"
             element={authUser ? <HomePage /> : <Navigate to="/login" />}
+          />
+          <Route 
+            path="/player"
+            element= {<StreamPlayer/>}
           />
           <Route
             path="/login"

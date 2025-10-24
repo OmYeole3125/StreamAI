@@ -19,7 +19,12 @@ const app = express();
 const server = http.createServer(app);
 
 app.use(express.json());
-app.use(cors());
+// app.use(cors());
+
+app.use(cors({
+  origin: "http://localhost:5173",
+  credentials: true,
+}));
 
 app.use('/api/auth', authRoutes);
 app.use('/api/streamkey', streamkeyRoutes);

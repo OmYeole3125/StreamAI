@@ -55,7 +55,7 @@ RUN apk del build-base wget git autoconf automake libtool && \
 COPY nginx.conf /etc/nginx/nginx.conf
 
 # expose RTMP and HTTP (HLS)
-EXPOSE 1935 8080
+EXPOSE 1935 5173
 
 VOLUME ["/var/www/hls"]
 
