@@ -60,3 +60,5 @@ EXPOSE 1935 5173
 VOLUME ["/var/www/hls"]
 
 CMD ["nginx", "-g", "daemon off;"]
+
+

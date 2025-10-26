@@ -1,9 +1,12 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { FiMenu, FiX } from "react-icons/fi";
+import { useAuthStore } from "../store/useAuthStore";
 
 const Navbar = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+
+  const { authUser, isAuthenticate, logout } = useAuthStore();
 
   return (
     <>
@@ -24,12 +27,16 @@ const Navbar = () => {
           <NavLink to="/" label="Home" />
           <NavLink to="/stream" label="Streams" />
           <NavLink to="/about" label="About" />
-          <Link
+
+          {authUser?<div onClick={logout}>
+            logout
+          </div>:
+            <Link
             to="/login"
             className="text-red-500 hover:border-2 hover:border-red-500 px-4 py-2 rounded-lg font-semibold shadow-md transition duration-300"
           >
             Login / Sign-in
-          </Link>
+          </Link>}
         </div>
 
         {/* Mobile Menu Button */}
