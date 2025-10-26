@@ -6,7 +6,9 @@ import LoginPage from "./pages/LoginPage";
 import HomePage from "./pages/HomePage";
 import { useAuthStore } from "./store/useAuthStore";
 import StreamPlayer from "./pages/StreamPlayer";
+import ProfilePage from "./pages/ProfilePage";
 import toast from "react-hot-toast";
+import ExploreLiveStreamPage from "./pages/ExploreLiveStreamPage";
 
 const App = () => {
   const { authUser, isAuthenticate, isCheckingAuth } = useAuthStore();
@@ -27,14 +29,7 @@ const App = () => {
     <div>
       <BrowserRouter>
         <Routes>
-          <Route
-            path="/"
-            element={authUser ? <HomePage /> : <Navigate to="/login" />}
-          />
-          <Route 
-            path="/player"
-            element= {<StreamPlayer/>}
-          />
+          <Route path="/" element={<HomePage />} />
           <Route
             path="/login"
             element={!authUser ? <LoginPage /> : <Navigate to="/" />}
@@ -43,6 +38,9 @@ const App = () => {
             path="/register"
             element={!authUser ? <RegisterPage /> : <Navigate to="/" />}
           />
+          <Route path="/player" element={<StreamPlayer />} />
+          <Route path="/profile" element={<ProfilePage />} />
+          <Route path="/explore" element={<ExploreLiveStreamPage />} />
           {/* <Route path="/stream/:id" element={<Stream />} /> */}
           {/* <Route path="/profile" element={<Profile />} /> */}
           {/* <Route path="/about" element={<About />} /> */}
